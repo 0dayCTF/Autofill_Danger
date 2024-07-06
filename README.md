@@ -25,5 +25,9 @@ This attack exploits the autofill feature of browsers. Here are the key steps in
 3. **Autofill Trigger**: The browser's autofill feature automatically populates both visible and hidden fields with saved user data.
 4. **Extraction**: The hidden fields capture sensitive information without the user’s knowledge, which is then sent to the attacker.
 
+## Photo
+
+![image](https://github.com/0dayCTF/Autofill_Danger/assets/44453666/ab888f01-8413-4553-a413-73b75751adca)
+
 
 _Inspired by Viljami Kuosmanen - https://github.com/anttiviljami/browser-autofill-phishing_
