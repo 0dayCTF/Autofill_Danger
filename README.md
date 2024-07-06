@@ -1,8 +1,7 @@
 # Autofill Phishing
 
 # Try it yourself!
-https://github.io/autofill
-
+https://autofill.netlify.app
 ## PoC Video
 https://www.instagram.com/reel/C9DTe87OrTH/
 
