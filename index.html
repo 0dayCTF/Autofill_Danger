@@ -30,7 +30,7 @@
         border-color: #004085;
       }
       .modal-content {
-        background-color: #ffffff;
+        background-color: #495057;
         color: #000000;
       }
       .modal-header {
@@ -125,21 +125,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        function displayModal(content) {
-          document.getElementById('resultContent').innerHTML = content;
-          $('#resultModal').modal('show');
-        }
-  
-        document.getElementById('phishingForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          const formData = new FormData(event.target);
-          let resultText = 'You submitted the following data:<br>';
-          formData.forEach((value, key) => {
-            resultText += `<strong>${key}:</strong> ${value}<br>`;
-          });
-          displayModal(resultText);
-        });
-      </script>
+      function displayModal(content) {
+        document.getElementById('resultContent').innerHTML = content;
+        $('#resultModal').modal('show');
+      }
+
+async function getClientIP() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip;
+  } catch (error) {
+    return 'Unable to retrieve IP';
+  }
+}
+
+document.getElementById('phishingForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  let resultText = 'You submitted the following data:<br>';
+  formData.forEach((value, key) => {
+    resultText += `<strong>${key}:</strong> ${value}<br>`;
+  });
+
+  const ipAddress = await getClientIP();
+  resultText += `<strong>IP Address:</strong> ${ipAddress}<br>`;
+
+  displayModal(resultText);
+});
+
+    </script>
   </body>
 </html>
 <!-- Inspired by Viljami Kuosmanen - https://github.com/anttiviljami/browser-autofill-phishing -->
