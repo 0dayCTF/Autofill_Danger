@@ -1,7 +1,7 @@
 # Autofill Phishing
 
 # Try it yourself!
-https://autofill.netlify.app
+The demo was suspended, check out the video below! 
 ## PoC Video
 https://www.instagram.com/reel/C9DTe87OrTH/
 
